@@ -16,16 +16,6 @@ static dispatch_queue_t kZYCAnimationQueue;
 
 @interface ZYCDraggableContainerView ()
 
-/// 元素的宽度
-@property (nonatomic, assign) CGFloat elementWidth;
-
-/// 元素的高度
-@property (nonatomic, assign) CGFloat elementHeight;
-
-/// 元素与元素之前的垂直间距
-@property (nonatomic, assign) CGFloat elementVerticalMargin;
-/// 元素与元素之前的水平间距
-@property (nonatomic, assign) CGFloat elementHorizontalMargin;
 /// 记录移动之前的postion 是个center，做还原位置用
 @property (nonatomic, assign) CGPoint originPosition;
 /// 被移动的图标起始序列 (index 0~N)
@@ -62,8 +52,8 @@ static dispatch_queue_t kZYCAnimationQueue;
         _elementHorizontalMargin = 5;
         
         // dummy
-        _elementWidth = 20;
-        _elementHeight = 40;
+        _elementWidth = 72;
+        _elementHeight = 72;
 //        CGFloat x = _elementHorizontalMargin;
 //        CGFloat y = _elementVerticalMargin;
 //        NSInteger colCount = NSIntegerMax;
@@ -124,22 +114,13 @@ static dispatch_queue_t kZYCAnimationQueue;
     CGFloat y = _elementVerticalMargin;
     NSInteger colCount = NSIntegerMax;
     for (int i = 0 ; i < _elements.count; i++) {
-        
-//        UIButton *e = [UIButton buttonWithType:UIButtonTypeCustom];;
-//        NSURL *imageUrl = [tis objectAtIndex:i];
-//        UIImage *iconImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];[NSData dataWithContentsOfURL:imageUrl];
-//        
-//        _elementWidth = iconImg.size.width / 2;
-//        _elementHeight = iconImg.size.height/ 2;
-//        
-//        [e setImage:iconImg forState:UIControlStateNormal];
         UIView *e = _elements[i];
         
+        e.userInteractionEnabled = YES;
         
         UILongPressGestureRecognizer *longG = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                             action:@selector(longPressed:)];
         [e addGestureRecognizer:longG];
-        
         if (x + _elementHorizontalMargin * 3 + _elementWidth > self.bounds.size.width) {
             y += _elementVerticalMargin + _elementHeight;
             x = _elementHorizontalMargin;

@@ -20,10 +20,16 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     NSMutableArray *a = [NSMutableArray array];
-    for (int i =0 ; i< 100; i++) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        view.backgroundColor = [UIColor redColor];
-        [a addObject:view];
+    NSArray *paths = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"png" subdirectory:@"Resource"];
+    
+    for (NSURL *url in paths) {
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        
+        UIImage *img = [UIImage imageWithData:data scale:2];
+        
+        UIImageView *iv = [[UIImageView alloc] initWithImage:img];
+        
+        [a addObject:iv];
         
     }
     
